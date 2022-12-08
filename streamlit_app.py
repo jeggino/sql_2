@@ -1,13 +1,13 @@
 # streamlit_app.py
 
 import streamlit as st
-import mysql.connector
+import psycopg2
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
 @st.experimental_singleton
 def init_connection():
-    return mysql.connector.connect(**st.secrets["mysql"])
+    return psycopg2.connect(**st.secrets["postgres"])
 
 conn = init_connection()
 
