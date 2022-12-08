@@ -6,7 +6,11 @@ from  mysql import connector
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
 def init_connection():
-    return connector().connect(**st.secrets["mysql"])
+    return connector().connect(host = "127.0.0.1",
+                                port = 3306,
+                                database = "pets",
+                                user = "root",
+                                password = "Platinum79")
 
 conn = init_connection()
 
