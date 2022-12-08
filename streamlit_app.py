@@ -1,18 +1,17 @@
 # streamlit_app.py
 
 import streamlit as st
-from  mysql import connector
+import mysql.connector
 
-# Initialize connection.
-# Uses st.experimental_singleton to only run once.
-def init_connection():
-    return connector().connect(host = "127.0.0.1",
-                                port = 3306,
-                                database = "pets",
-                                user = "root",
-                                password = "Platinum79")
+config = {
+  'user': 'root',
+  'password': 'Platinum79',
+  'host': '127.0.0.1',
+  'database': 'pets',
+  'raise_on_warnings': True
+}
 
-conn = init_connection()
+conn = mysql.connector.connect(**config)
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
@@ -21,7 +20,7 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
-rows = run_query("SELECT * FROM pets.mytable;")
+rows = run_query("SELECT * FROM mytable;")
 
 # Print results.
 for row in rows:
